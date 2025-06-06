@@ -69,6 +69,8 @@ class Ball {
   }
 }
 
+
+
 class Team {
   constructor(x,y, w, h, color) {
     this.name = color
@@ -88,6 +90,17 @@ class Team {
 const balls = [];
 let team_red = new Team(0, height/2 - 50, 30, 100, "red")
 let team_blue = new Team(width - 30, height/2 - 50, 30, 100, "blue")
+
+formV = querySelector('#red')
+form.addEventListener('submit', definirTimeVermelho)
+
+
+function definirTimeVermelho(event) {
+  event.preventDefault();
+  alturaVermelho = parseInt(document.querySelector('#input-trave-verm').value)
+  team_red.h = alturaVermelho
+}
+
 
 
 function start(){
@@ -121,7 +134,6 @@ function start(){
   }
   
 }
-
 
 
 
