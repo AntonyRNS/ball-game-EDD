@@ -97,6 +97,9 @@ let team_blue = new Team(width - 30, height/2 - 50, 30, 100, "blue")
 formV = document.querySelector('#red')
 formV.addEventListener('submit', definirTimeVermelho)
 
+formA = document.querySelector('#blue')
+formA.addEventListener('submit', definirTimeAzul)
+
 
 function definirTimeVermelho(event) {
   event.preventDefault();
@@ -105,7 +108,12 @@ function definirTimeVermelho(event) {
   team_red.checarY()
 }
 
-
+function definirTimeAzul(event) {
+  event.preventDefault();
+  alturaAzul = parseInt(document.querySelector('#input-trave-azul').value)
+  team_blue.h = alturaAzul
+  team_blue.checarY()
+}
 
 function start(){
   for (let i = 0; i < team_red.balls_count; i++) {
