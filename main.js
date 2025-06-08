@@ -75,10 +75,13 @@ class Team {
   constructor(x,y, w, h, color) {
     this.name = color
     this.x = x
-    this.y = y
     this.w = w
     this.h = h
     this.color = color
+    this.checarY()
+  }
+  checarY(){
+    this.y = (canvas.height / 2) - (this.h / 2)
   }
 
   draw() {
@@ -99,6 +102,7 @@ function definirTimeVermelho(event) {
   event.preventDefault();
   alturaVermelho = parseInt(document.querySelector('#input-trave-verm').value)
   team_red.h = alturaVermelho
+  team_red.checarY()
 }
 
 
