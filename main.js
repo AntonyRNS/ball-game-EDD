@@ -91,8 +91,8 @@ const balls = [];
 let team_red = new Team(0, height/2 - 50, 30, 100, "red")
 let team_blue = new Team(width - 30, height/2 - 50, 30, 100, "blue")
 
-formV = querySelector('#red')
-form.addEventListener('submit', definirTimeVermelho)
+formV = document.querySelector('#red')
+formV.addEventListener('submit', definirTimeVermelho)
 
 
 function definirTimeVermelho(event) {
