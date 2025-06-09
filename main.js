@@ -115,7 +115,14 @@ function definirTimeAzul(event) {
   team_blue.checarY()
 }
 
+botaoStart = document.querySelector('#buttonStart')
+botaoStart.addEventListener('click', start)
+
 function start(){
+  team_red.balls_count = parseInt(document.querySelector('#qtd-bolas-verm').value)
+  team_blue.balls_count = parseInt(document.querySelector('#qtd-bolas-azuis').value)
+
+
   for (let i = 0; i < team_red.balls_count; i++) {
     const size = random(10, 20);
     const ball_red = new Ball(
