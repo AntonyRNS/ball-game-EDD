@@ -1,3 +1,5 @@
+import Ball from './Ball.js'
+
 // set up canvas
 
 const canvas = document.querySelector("canvas");
@@ -7,72 +9,18 @@ const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
 
 // function to generate random number
-
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
-class Ball {
-  constructor(x, y, velX, velY, color, size) {
-    this.x = x;
-    this.y = y;
-    this.velX = velX;
-    this.velY = velY;
-    this.color = color;
-    this.size = size;
-  }
 
-  draw() {
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-    ctx.fill();
-  }
 
-  update() {
-    if (this.x + this.size >= width) {
-      this.velX = -Math.abs(this.velX);
-    }
-
-    if (this.x - this.size <= 0) {
-      this.velX = Math.abs(this.velX);
-    }
-
-    if (this.y + this.size >= height) {
-      this.velY = -Math.abs(this.velY);
-    }
-
-    if (this.y - this.size <= 0) {
-      this.velY = Math.abs(this.velY);
-    }
-
-    this.x += this.velX;
-    this.y += this.velY;
-  }
-
-  collisionDetect(goal1, goal2) {
-    if (
-      this.x - this.size <  goal1.x + 1  && 
-      (this.y - this.size > goal1.y && this.y < goal1.y + goal1.h) &&
-      this.color !== goal1.color
-    ){
-      console.log("gol")
-    }
-
-    if (this.x - this.size >  goal2.x && 
-      (this.y - this.size > goal2.y && this.y < goal1.y + goal1.h ) &&
-      this.color !== goal2.color
-    ){
-      console.log("gol")
-    }
-  }
-}
 
 
 
 class Team {
-  constructor(x,y, w, h, color) {
+  constructor(x, y, w, h, color) {
     this.name = color
     this.x = x
     this.w = w
@@ -80,50 +28,50 @@ class Team {
     this.color = color
     this.checarY()
   }
-  checarY(){
+  checarY() {
     this.y = (canvas.height / 2) - (this.h / 2)
   }
 
   draw() {
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x,this.y, this.w, this.h);
+    ctx.fillRect(this.x, this.y, this.w, this.h);
   }
 }
 
 const balls = [];
-let team_red = new Team(0, height/2 - 50, 30, 100, "red")
-let team_blue = new Team(width - 30, height/2 - 50, 30, 100, "blue")
+let team_red = new Team(0, height / 2 - 50, 30, 100, "red")
+let team_blue = new Team(width - 30, height / 2 - 50, 30, 100, "blue")
 
-formV = document.querySelector('#red')
+const formV = document.querySelector('#red')
 formV.addEventListener('submit', definirTimeVermelho)
 
-formA = document.querySelector('#blue')
+const formA = document.querySelector('#blue')
 formA.addEventListener('submit', definirTimeAzul)
 
 
 function definirTimeVermelho(event) {
   event.preventDefault();
-  alturaVermelho = parseInt(document.querySelector('#input-trave-verm').value)
+  let alturaVermelho = parseInt(document.querySelector('#input-trave-verm').value)
   team_red.h = alturaVermelho
   team_red.checarY()
 }
 
 function definirTimeAzul(event) {
   event.preventDefault();
-  alturaAzul = parseInt(document.querySelector('#input-trave-azul').value)
+  let alturaAzul = parseInt(document.querySelector('#input-trave-azul').value)
   team_blue.h = alturaAzul
   team_blue.checarY()
 }
 
-botaoStart = document.querySelector('#buttonStart')
+const botaoStart = document.querySelector('#buttonStart')
 botaoStart.addEventListener('click', start)
 
-function start(){
+function start() {
   team_red.balls_count = parseInt(document.querySelector('#qtd-bolas-verm').value)
   team_blue.balls_count = parseInt(document.querySelector('#qtd-bolas-azuis').value)
-  velocidade_vermelha = parseInt(document.querySelector('#vlc-bolas-verm').value)
-  velocidade_azul = parseInt(document.querySelector('#vlc-bolas-azuis').value)
- 
+  let velocidade_vermelha = parseInt(document.querySelector('#vlc-bolas-verm').value)
+  let velocidade_azul = parseInt(document.querySelector('#vlc-bolas-azuis').value)
+
 
   for (let i = 0; i < team_red.balls_count; i++) {
     const size = random(10, 20);
@@ -139,7 +87,7 @@ function start(){
     );
     balls.push(ball_red);
   }
-  for (let i = 0; i < team_blue.balls_count; i++)  {
+  for (let i = 0; i < team_blue.balls_count; i++) {
     const size = random(10, 20);
     const ball_blue = new Ball(
       // ball position always drawn at least one ball width
@@ -153,7 +101,7 @@ function start(){
     );
     balls.push(ball_blue);
   }
-  
+
 }
 
 
@@ -162,16 +110,15 @@ function loop() {
   ctx.fillStyle = "rgba(101, 250, 100, 0.25)";
   ctx.fillRect(0, 0, width, height);
 
-  team_red.draw()
-  
-  team_blue.draw()
+  team_red.draw(ctx)
+
+  team_blue.draw(ctx)
 
   for (const ball of balls) {
-    ball.draw();
-    ball.update();
+    ball.draw(ctx);
+    ball.update(width, height);
     ball.collisionDetect(team_red, team_blue);
   }
-
   requestAnimationFrame(loop);
 }
 
