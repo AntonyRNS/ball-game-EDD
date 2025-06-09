@@ -121,7 +121,9 @@ botaoStart.addEventListener('click', start)
 function start(){
   team_red.balls_count = parseInt(document.querySelector('#qtd-bolas-verm').value)
   team_blue.balls_count = parseInt(document.querySelector('#qtd-bolas-azuis').value)
-
+  velocidade_vermelha = parseInt(document.querySelector('#vlc-bolas-verm').value)
+  velocidade_azul = parseInt(document.querySelector('#vlc-bolas-azuis').value)
+ 
 
   for (let i = 0; i < team_red.balls_count; i++) {
     const size = random(10, 20);
@@ -130,7 +132,7 @@ function start(){
       // away from the edge of the canvas, to avoid drawing errors
       random(0 + size, width - size),
       random(0 + size, height - size),
-      random(1,20),
+      velocidade_vermelha,
       random(-7, 7),
       "red",
       size
@@ -144,7 +146,7 @@ function start(){
       // away from the edge of the canvas, to avoid drawing errors
       random(0 + size, width - size),
       random(0 + size, height - size),
-      random(1,20),
+      velocidade_azul,
       random(-7, 7),
       "blue",
       size
