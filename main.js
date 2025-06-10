@@ -1,7 +1,7 @@
 import Ball from './Ball.js'
+import Team from './Team.js'
 
 // set up canvas
-
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -13,32 +13,7 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-
-
-
-
-
-class Team {
-  constructor(x, y, w, h, color) {
-    this.name = color
-    this.x = x
-    this.w = w
-    this.h = h
-    this.color = color
-    this.checarY()
-  }
-  checarY() {
-    this.y = (canvas.height / 2) - (this.h / 2)
-  }
-
-  draw() {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
-  }
-}
-
-const balls = [];
+let balls = [];
 let team_red = new Team(0, height / 2 - 50, 30, 100, "red")
 let team_blue = new Team(width - 30, height / 2 - 50, 30, 100, "blue")
 
@@ -56,6 +31,24 @@ function definirTimeVermelho(event) {
   team_red.checarY()
 }
 
+function configuracaoPadrao(event) {
+  event.preventDefault();
+
+  balls = []
+  team_red.h = 300
+  team_red.checarY()
+
+  team_blue.h = 300
+  team_blue.checarY()
+
+  velocidade_azul = 10
+  velocidade = 10
+
+  team_blue.balls_count = 1
+  team_red.balls_count = 1
+
+}
+
 function definirTimeAzul(event) {
   event.preventDefault();
   let alturaAzul = parseInt(document.querySelector('#input-trave-azul').value)
@@ -66,11 +59,19 @@ function definirTimeAzul(event) {
 const botaoStart = document.querySelector('#buttonStart')
 botaoStart.addEventListener('click', start)
 
+const botaoReset = document.querySelector('#buttonReset')
+botaoReset.addEventListener('click', configuracaoPadrao)
+
 function start() {
   team_red.balls_count = parseInt(document.querySelector('#qtd-bolas-verm').value)
   team_blue.balls_count = parseInt(document.querySelector('#qtd-bolas-azuis').value)
   let velocidade_vermelha = parseInt(document.querySelector('#vlc-bolas-verm').value)
   let velocidade_azul = parseInt(document.querySelector('#vlc-bolas-azuis').value)
+
+
+
+  
+
 
 
   for (let i = 0; i < team_red.balls_count; i++) {
@@ -105,15 +106,11 @@ function start() {
 }
 
 
-
 function loop() {
   ctx.fillStyle = "rgba(101, 250, 100, 0.25)";
   ctx.fillRect(0, 0, width, height);
-
   team_red.draw(ctx)
-
   team_blue.draw(ctx)
-
   for (const ball of balls) {
     ball.draw(ctx);
     ball.update(width, height);
