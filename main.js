@@ -30,7 +30,6 @@ function definirTimeVermelho(event) {
   team_red.h = alturaVermelho
   team_red.checarY()
 }
-
 function configuracaoPadrao(event) {
   event.preventDefault();
 
@@ -42,7 +41,7 @@ function configuracaoPadrao(event) {
   team_blue.checarY()
 
   velocidade_azul = 10
-  velocidade = 10
+  velocidade_vermelha = 10
 
   team_blue.balls_count = 1
   team_red.balls_count = 1
