@@ -6,7 +6,6 @@
 export default class Team {
 
   /**
-   * 
    * @param {number} x - Posição horizontal da trave
    * @param {number} w - Largura da trave
    * @param {number} h - Altura da trave
