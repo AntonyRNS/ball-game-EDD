@@ -30,9 +30,12 @@ const botaoStart = document.querySelector('#buttonStart')
 botaoStart.addEventListener('click', start)
 
 const botaoReset = document.querySelector('#buttonReset')
-botaoReset.addEventListener('click', (e) =>
-  utils.configuracaoPadrao(e, balls, team_red, team_blue, setVelocidadeVermelha, setVelocidadeAzul)
-)
+botaoReset.addEventListener('click',resetJogo)
+
+
+function resetJogo() {
+  utils.configuracaoPadrao(null, balls, team_red, team_blue, setVelocidadeVermelha, setVelocidadeAzul);
+}
 
 function setVelocidadeVermelha(valor) {
   velocidade_vermelha = valor
@@ -53,6 +56,7 @@ function getValues() {
   document.querySelector('#vlc-bolas-verm').value = 10
   document.querySelector('#vlc-bolas-azuis').value = 10
 }
+
 
 function start() {
   getValues()

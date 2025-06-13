@@ -1,3 +1,6 @@
+
+
+
 /**
  * É a representação de uma bola de futebol.
  * @class
@@ -57,37 +60,47 @@ export default class Ball {
     this.x += this.velX;
     this.y += this.velY;
   }
-  
+
   /**
    * Função responsável por detecar a colisão entre a bola e atrave.
    */
-  collisionDetect(goal1, goal2) {
 
+  
+  collisionDetect(goal1, goal2) {
+    
     if (
       this.x - this.size < goal1.x + 1 &&
       (this.y - this.size > goal1.y && this.y < goal1.y + goal1.h)
     ) {
-      if (this.color === "blue" || this.color === "#1565c0") {  // azul marcou ponto
+      if (this.color === "blue") {
         console.log("gol azul");
 
         const scoreblue = document.getElementById("score-blue");
         if (scoreblue) {
           scoreblue.textContent = parseInt(scoreblue.textContent) + 1;
+          if (parseInt(scoreblue.textContent) >= 10) {
+            scoreblue.textContent = 'Time azul marcou 10 pontos!';
+            
+          }
         }
       }
     }
-
 
     if (
       this.x - this.size > goal2.x &&
       (this.y - this.size > goal2.y && this.y < goal2.y + goal2.h)
     ) {
-      if (this.color === "red" || this.color === "#c62828") {  
+      if (this.color === "red") {
         console.log("gol vermelho");
 
         const scorered = document.getElementById("score-red");
         if (scorered) {
           scorered.textContent = parseInt(scorered.textContent) + 1;
+          if (parseInt(scorered.textContent) >= 10) {
+            scorered.textContent = 'Time vermelho marcou 10 pontos!';
+     
+
+          }
         }
       }
     }
