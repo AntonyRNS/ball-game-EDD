@@ -1,44 +1,219 @@
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title> BALLGAME </title>
-    <style>
+<html lang="pt-BR">
 
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FutBola</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <style>
+    /* Reset some basics */
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-  <body>
-    
-    <main>
-      <div id="time1">
-        <form id="red">
-          <h1>Time 1</h1>
-          <input type="text" placeholder="Tamanho da trave vermelha" id="input-trave-verm">
-          <input type="text" placeholder="Quantidade de bolas vermelhas" id="qtd-bolas-verm">
-          <input type="text" placeholder="Velocidade das bolas vermelhas" id="vlc-bolas-verm">
-          <input type="submit" placeholder="Definir">
-        </form>
-      </div>
-      <div id="canvas">
-        <canvas></canvas>
-        <input type="button" value="start" id="buttonStart">
-        <input type="button" value="reset" id="buttonReset">
-      </div>
-      <div id="time2">
-        <form id="blue">
-          <h1>Time 2</h1>
-          <input type="text" placeholder="Tamanho da trave azul" id="input-trave-azul">
-          <input type="text" placeholder="Quantidade de bolas azuis" id="qtd-bolas-azuis">
-          <input type="text" placeholder="Velocidade das bolas azuis" id="vlc-bolas-azuis">
-          <input type="submit" placeholder="Definir">
-        </form>
-      </div>
-    </main>
-    
+    main {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      gap: 1rem;
+    }
 
-    <script type="module" src="main.js"></script>
-  </body>
+    #time1,
+    #time2 {
+      flex: 0 0 20%;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 0 10px rgba(255 255 255 / 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #time1 h1 {
+      color: #c62828;
+      /* vermelho escuro */
+      margin-bottom: 1rem;
+    }
+
+    #time2 h1 {
+      color: #1565c0;
+      /* azul escuro */
+      margin-bottom: 1rem;
+    }
+
+    form input[type="text"] {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background-color: #222;
+      color: #e0e0e0;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    form input[type="text"]:focus {
+      border-color: #f0a500;
+      outline: none;
+      background-color: #2c2c2c;
+    }
+
+    form input[type="submit"] {
+      width: 100%;
+      padding: 0.6rem 0;
+      background-color: #f0a500;
+      border: none;
+      border-radius: 6px;
+      color: #121212;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    form input[type="submit"]:hover {
+      background-color: #d18e00;
+    }
+
+    #canvas {
+      flex: 0 0 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    #canvas canvas {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      box-shadow: 0 0 15px rgba(255 255 255 / 0.1);
+    }
+
+    #canvas input[type="button"] {
+      width: 120px;
+      padding: 0.5rem 0;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #buttonStart {
+      background-color: #388e3c;
+      color: #e0e0e0;
+    }
+
+    #buttonStart:hover {
+      background-color: #2e7d32;
+    }
+
+    #buttonReset {
+      background-color: #c62828;
+      color: #e0e0e0;
+    }
+
+    #buttonReset:hover {
+      background-color: #b71c1c;
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+      main {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 1rem;
+        gap: 2rem;
+      }
+
+      #time1,
+      #time2,
+      #canvas {
+        flex: none;
+        width: 100%;
+      }
+
+      #canvas canvas {
+        height: 350px;
+        max-width: 100%;
+      }
+    }
+
+    .scoreboard {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .scores {
+      color: #fff;
+    }
+
+    #score-blue {
+      color: #1565c0;
+    }
+
+    #score-red {
+      color: #c62828;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="scoreboard text-center py-3">
+    <h1>FutBola</h1>
+    <div class="scores fs-2">
+      <span id="score-red">0</span> x <span id="score-blue">0</span>
+    </div>
+  </header>
+  <main>
+
+    <section id="time1">
+      <form id="red">
+        <h1>Time Vermelho</h1>
+        <input type="text" placeholder="Tamanho da trave" id="input-trave-verm"  />
+        <input type="text" placeholder="Quantidade de bolas" id="qtd-bolas-verm" />
+        <input type="text" placeholder="Velocidade das bolas" id="vlc-bolas-verm"  />
+        <input type="submit" value="Definir" />
+      </form>
+    </section>
+
+    <section id="canvas">
+      <canvas></canvas>
+      <div class="d-flex gap-3">
+        <input type="button" value="Start" id="buttonStart" />
+        <input type="button" value="Reset" id="buttonReset" />
+      </div>
+    </section>
+
+    <section id="time2">
+      <form id="blue">
+        <h1>Time Azul</h1>
+        <input type="text" placeholder="Tamanho da trave" id="input-trave-azul"  />
+        <input type="text" placeholder="Quantidade de bolas" id="qtd-bolas-azuis"  />
+        <input type="text" placeholder="Velocidade das bolas" id="vlc-bolas-azuis"  />
+        <input type="submit" value="Definir" />
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+
 </html>
