@@ -57,25 +57,39 @@ export default class Ball {
     this.x += this.velX;
     this.y += this.velY;
   }
+  
   /**
    * Função responsável por detecar a colisão entre a bola e atrave.
    */
   collisionDetect(goal1, goal2) {
-    if (
-      this.x - this.size <  goal1.x + 1  && 
-      (this.y - this.size > goal1.y && this.y < goal1.y + goal1.h) &&
-      this.color !== goal1.color
 
-      
-    ){
-      console.log("gol vermelho")
+    if (
+      this.x - this.size < goal1.x + 1 &&
+      (this.y - this.size > goal1.y && this.y < goal1.y + goal1.h)
+    ) {
+      if (this.color === "blue" || this.color === "#1565c0") {  // azul marcou ponto
+        console.log("gol azul");
+
+        const scoreblue = document.getElementById("score-blue");
+        if (scoreblue) {
+          scoreblue.textContent = parseInt(scoreblue.textContent) + 1;
+        }
+      }
     }
 
-    if (this.x - this.size >  goal2.x && 
-      (this.y - this.size > goal2.y && this.y < goal1.y + goal1.h ) &&
-      this.color !== goal2.color
-    ){
-      console.log("gol azul")
+
+    if (
+      this.x - this.size > goal2.x &&
+      (this.y - this.size > goal2.y && this.y < goal2.y + goal2.h)
+    ) {
+      if (this.color === "red" || this.color === "#c62828") {  
+        console.log("gol vermelho");
+
+        const scorered = document.getElementById("score-red");
+        if (scorered) {
+          scorered.textContent = parseInt(scorered.textContent) + 1;
+        }
+      }
     }
   }
 }
