@@ -13,38 +13,50 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+
+/**
+ * 
+ * Definição das variaveis iniciais, criação das instancias das classes Ball e Team.
+ */
 let balls = []
 let team_red = new Team(0, height / 2 - 50, 30, 100, "red")
 let team_blue = new Team(width - 30, height / 2 - 50, 30, 100, "blue")
-
 let velocidade_vermelha = 10
 let velocidade_azul = 10
-
 const formV = document.querySelector('#red')
 formV.addEventListener('submit', (e) => utils.definirTimeVermelho(e, team_red))
-
 const formA = document.querySelector('#blue')
 formA.addEventListener('submit', (e) => utils.definirTimeAzul(e, team_blue))
-
 const botaoStart = document.querySelector('#buttonStart')
 botaoStart.addEventListener('click', start)
-
 const botaoReset = document.querySelector('#buttonReset')
 botaoReset.addEventListener('click',resetJogo)
 
-
+/**
+ * Função responsável por parar o jogo em progresso e retornar as configuraç~loes para o padrão inicial.
+ */
 function resetJogo() {
   utils.configuracaoPadrao(null, balls, team_red, team_blue, setVelocidadeVermelha, setVelocidadeAzul);
 }
 
+/**
+ * Recebe e define a velocidade da bola vermelha.
+ * @param {number} valor 
+ */
 function setVelocidadeVermelha(valor) {
   velocidade_vermelha = valor
 }
-
+/**
+ * Recebe e define a velocidade da bola azul.
+ * @param {number} valor 
+ */
 function setVelocidadeAzul(valor) {
   velocidade_azul = valor
 }
 
+/**
+ * Busca os valores no formulário e os define, reseta para aass configurações padrão sem parar o jogo.
+ */
 function getValues() {
   team_red.balls_count = parseInt(document.querySelector('#qtd-bolas-verm').value)
   team_blue.balls_count = parseInt(document.querySelector('#qtd-bolas-azuis').value)
@@ -57,7 +69,9 @@ function getValues() {
   document.querySelector('#vlc-bolas-azuis').value = 10
 }
 
-
+/**
+ * Inicia o jogo.
+ */
 function start() {
   getValues()
 
@@ -88,6 +102,9 @@ function start() {
   }
 }
 
+/**
+ * Mantém o jogo em loop.
+ */
 function loop() {
   ctx.fillStyle = "rgba(101, 250, 100, 0.25)"
   ctx.fillRect(0, 0, width, height)

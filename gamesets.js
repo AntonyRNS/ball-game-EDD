@@ -1,4 +1,17 @@
 
+/**
+ * Define as configurações padrão do jogo, como tamanho das traves, quantidade de bolas e velocidade delas quando
+ * o botão reset é chamado.
+ * @param {
+ * } event 
+ * @param {Object[]} balls 
+ * @param {Object[]} team_red 
+ * @param {Object[]} team_blue 
+ * @param {number} setVelocidadeVermelha 
+ * @param {number} setVelocidadeAzul 
+ */
+
+
 export function configuracaoPadrao(event, balls, team_red, team_blue, setVelocidadeVermelha, setVelocidadeAzul) {
     if (event) event.preventDefault()
 
@@ -29,6 +42,11 @@ export function configuracaoPadrao(event, balls, team_red, team_blue, setVelocid
     document.querySelector('#input-trave-azul').value = 300
 }
 
+
+/**
+ * 
+ *Define as configurações da trave vermelha assim como alinha com o eixo Y.
+ */
 export function definirTimeVermelho(event, team_red) {
     event.preventDefault()
     let alturaVermelho = parseInt(document.querySelector('#input-trave-verm').value)
@@ -36,6 +54,10 @@ export function definirTimeVermelho(event, team_red) {
     team_red.checarY()
 }
 
+/**
+ * 
+ *Define as configurações da trave azul assim como alinha com o eixo Y.
+ */
 export function definirTimeAzul(event, team_blue) {
     event.preventDefault()
     let alturaAzul = parseInt(document.querySelector('#input-trave-azul').value)
